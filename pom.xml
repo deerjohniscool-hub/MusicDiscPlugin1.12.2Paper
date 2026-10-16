@@ -13,10 +13,18 @@
 
     <properties>
         <!-- Java 8 is the version used by Spigot 1.12.2 -->
-        <maven.compiler.source>1.8</maven.co
+        <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <!-- Spigot snapshot repository (required for the API) -->
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Spigot API – marked as provided because the server supplies it at runtime -->
@@ -36,29 +44,18 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
             </plugin>
-            <!-- Shade plugin (optional) – cer want to bundle dependencies.
-                 For this plugin we don’t need it because we only depend on the provided API. -->
-            <!--
-            <plugin>                                         <groupId>org.apache.maven.pl
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals><goal>shade</goal></goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                                <transformer implementation="org.apache.maven.plugins.shaTransformer">
-                                    <mainClass>com.example.discplugin.DiscPlugin</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
+        </plugins>
+    </build>
+</project>
+
+What to do next
+
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
             </plugin>
-            -->
         </plugins>
     </build>
 </project>

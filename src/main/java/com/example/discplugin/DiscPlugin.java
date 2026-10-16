@@ -30,8 +30,7 @@ public class DiscPlugin extends JavaPlugin implements Listener {
     private final File soundFolder = new File(getDataFolder(), "sounds");
     // Mapping from disc custom name to sound file name (without extension)
     private final Map<String, String> discSoundMap = new HashMap<>();
-    // Set of jukebox locations currently playing our custom sound (to stop on ejection if needed)
-    // We'll store as strings of "world,x,y,z"
+    // Set of jukebox locations currently playing our custom sound (for possible future use)
     private final Map<String, JukeboxInfo> playingJukeboxes = new HashMap<>();
 
     @Override
@@ -109,9 +108,7 @@ public class DiscPlugin extends JavaPlugin implements Listener {
         ItemMeta meta = disc.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(displayName);
-            // Optional: add lore
-            // meta.setLore(Arrays.asList("Custom disc"));
-            meta.setItemName(displayName); // For older versions, setDisplayName is enough
+            // Note: setItemName does not exist in 1.12.2 – displayName is enough
             disc.setItemMeta(meta);
         }
         return disc;
@@ -179,19 +176,8 @@ public class DiscPlugin extends JavaPlugin implements Listener {
         ItemStack record = jukebox.getRecord();
         if (record != null && isOurDisc(record)) {
             // Let the event proceed normally (do not cancel) so the jukebox ejects the disc
-            // We'll not stop the sound here; the sound will continue until it finishes.
+            // We’ll not stop the sound here; the sound will continue until it finishes.
             // Since we played the sound once when inserted, it will stop automatically when done.
-            // We'll just remove the jukebox from our playing map after ejection? We'll do it in a check below.
-            // We'll add a check after the event? Hard.
-            // We'll just rely on the fact that the sound played once and will stop.
-            // So we do nothing special here.
-            // However, we need to ensure that if the player ejects the disc before the sound finishes,
-            // the sound should stop. We'll not handle that case.
-            // We'll accept this limitation.
-            // Let the event proceed.
-            // We'll also remove the jukebox from our playing map now? Actually the sound may still be playing.
-            // We'll keep it; when the sound finishes naturally, it stops.
-            // We'll not try to stop it early.
             return;
         }
 
@@ -219,6 +205,27 @@ public class DiscPlugin extends JavaPlugin implements Listener {
      * Generates a key for a location (world,x,y,z) for use in maps.
      */
     private String getLocationKey(Location location) {
+        return location.getWorld().getName() + "," +
+                location.getBlockX() + "," +
+                location.getBlockY() + "," +
+                location.getBlockZ();
+    }
+
+    /**
+     * Simple class to hold info about a jukebox playing our sound.
+     */
+    private class JukeboxInfo {
+        private final Location location;
+        private final String soundFile;
+
+        JukeboxInfo(Location location, String soundFile) {
+            this.location = location;
+            this.soundFile = soundFile;
+        }
+    }
+}
+
+Key changes
         return location.getWorld().getName() + "," +
                 location.getBlockX() + "," +
                 location.getBlockY() + "," +

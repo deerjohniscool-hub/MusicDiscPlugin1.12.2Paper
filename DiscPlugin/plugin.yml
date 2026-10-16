@@ -1,0 +1,16 @@
+name: DiscPlugin
+main: com.example.discplugin.DiscPlugin
+version: 1.0
+api-version: 1.12
+author: YourName
+description: Allows downloading MP3 from URLs and converting them to custom music discs.
+commands:
+  musicdisc:
+    description: Download an MP3 and create a music disc.
+    usage: /musicdisc <url> <songName>
+    permission: discplugin.use
+    permission-message: You don't have permission to use this command.
+permissions:
+  discplugin.use:
+    description: Allows the user to use the /musicdisc command.
+    default: true

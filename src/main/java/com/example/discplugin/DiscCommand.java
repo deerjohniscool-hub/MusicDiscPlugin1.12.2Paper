@@ -53,7 +53,7 @@ public class DiscCommand implements CommandExecutor {
         File soundFile = downloadMp3(urlString, songName);
         if (soundFile == null) {
             player.sendMessage(ChatColor.RED + "Failed to download MP3.");
-            return true;
+            return
         }
 
         // Register the sound (this will be loaded on next server restart or we can try to load it now)
@@ -69,9 +69,6 @@ public class DiscCommand implements CommandExecutor {
         player.sendMessage(ChatColor.GREEN + "Downloaded and created disc for song: " + ChatColor.YELLOW + songName);
         return true;
     }
-
-    /**
-     * Downloads an MP3 from the given URL and saves it to the plugin's sound folder.
      * @param urlString The URL of the MP3.
      * @param songName The desired name for the sound file (without extension).
      * @return The saved File, or null if failed.

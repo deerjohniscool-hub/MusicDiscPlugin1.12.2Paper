@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class DiscCommand implements CommandExecutor {
         }
 
         // Register the sound (this will be loaded on next server restart or we can try to load it now)
-        // For simplicity, we'll just add the mapping and reload the sounds map.
+        // For simplicity, we’ll just add the mapping and reload the sounds map.
         plugin.addDiscSound(songName, soundFile.getName().replace(".mp3", ""));
         // Also, we can try to register the sound instantly via SoundUtils (if implemented)
         // SoundUtils.registerSound(plugin, songName, soundFile); // We'll implement this later
